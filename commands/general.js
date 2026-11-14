@@ -1,3 +1,4 @@
+
 import { buildMenu } from "../lib/menu.js";
 
 function formatDuration(seconds) {
@@ -40,9 +41,9 @@ const commands = [
         try {
           await ctx.send({
             image: { url: ctx.config.imageUrl },
-            caption: "🤖 *FEI XMD — WhatsApp Bot by Benfei Tech*\n" +
-              "Official pairing portal: " + ctx.config.botUrl + "\n" +
-              "⚡ Powered by Benfei Tech"
+            caption: "⚡ *𝙁𝙀𝙄 𝙓𝙈𝘿 — 𝙒𝙃𝘼𝙏𝙎𝘼𝙋𝙋 𝘽𝙊𝙏 𝘽𝙔 𝘽𝙀𝙉𝙁𝙀𝙄 𝙏𝙀𝘾𝙃*\n" +
+              "◆ 𝙊𝙛𝙛𝙞𝙘𝙞𝙖𝙡 𝙥𝙖𝙞𝙧𝙞𝙣𝙜 𝙥𝙤𝙧𝙩𝙖𝙡: " + ctx.config.botUrl + "\n" +
+              "⚡ 𝙋𝙊𝙒𝙀𝙍𝙀𝘿 𝘽𝙔 𝘽𝙀𝙉𝙁𝙀𝙄 𝙏𝙀𝘾𝙃"
           });
         } catch (error) {
           console.warn("FEI XMD menu artwork could not be sent; using the text menu:", error?.message || error);
@@ -61,16 +62,21 @@ const commands = [
         .slice()
         .sort((a, b) => a.name.localeCompare(b.name))
         .map(command => ctx.config.prefix + command.name + (command.description ? " — " + command.description : ""));
-      const header = "📚 FEI XMD HELP\n" + rows.length + " registered commands\n\n";
+
+      const header = "📚 𝙁𝙀𝙄 𝙓𝙈𝘿 𝙃𝙀𝙇𝙋\n" +
+        "◆ " + rows.length + " 𝙍𝙀𝙂𝙄𝙎𝙏𝙀𝙍𝙀𝘿 𝘾𝙊𝙈𝙈𝘼𝙉𝘿𝙎\n\n";
+
       const chunks = [];
       let current = header;
+
       for (const row of rows) {
         if (current.length + row.length + 1 > 3300) {
           chunks.push(current.trimEnd());
-          current = "📚 FEI XMD HELP (continued)\n\n";
+          current = "📚 𝙁𝙀𝙄 𝙓𝙈𝘿 𝙃𝙀𝙇𝙋 (𝘾𝙊𝙉𝙏𝙄𝙉𝙐𝙀𝘿)\n\n";
         }
-        current += row + "\n";
+        current += "┃ ➤│ " + row + "\n";
       }
+
       if (current.trim()) chunks.push(current.trimEnd());
       for (const chunk of chunks) await ctx.reply(chunk);
     }
@@ -82,13 +88,14 @@ const commands = [
     run: async ctx => {
       const timestamp = messageTimestampMs(ctx.msg);
       const responseMs = timestamp === null ? null : Math.max(0, Date.now() - timestamp);
+
       await ctx.reply([
-        "╭━━〔 🏓 FEI XMD · PONG 〕━━┈⊷",
-        "┃ ✦ Status: " + (ctx.connectionOpen ? "Online 🟢" : "Connecting 🟡"),
-        "┃ ✦ Response: " + (responseMs === null ? "Unavailable" : responseMs + " ms"),
-        "┃ ✦ Uptime: " + formatDuration(process.uptime()),
-        "┃ ✦ Version: " + ctx.config.version,
-        "╰━━━━━━━━━━━━━━━━━━━━━━┈⊷"
+        "┏━━〔 🏓 𝙁𝙀𝙄 𝙓𝙈𝘿 · 𝙋𝙊𝙉𝙂 〕━━◆",
+        "┃ ❖ 𝙎𝙩𝙖𝙩𝙪𝙨: " + (ctx.connectionOpen ? "𝙊𝙣𝙡𝙞𝙣𝙚 🟢" : "𝘾𝙤𝙣𝙣𝙚𝙘𝙩𝙞𝙣𝙜 🟡"),
+        "┃ ❖ 𝙍𝙚𝙨𝙥𝙤𝙣𝙨𝙚: " + (responseMs === null ? "𝙐𝙣𝙖𝙫𝙖𝙞𝙡𝙖𝙗𝙡𝙚" : responseMs + " ms"),
+        "┃ ❖ 𝙐𝙥𝙩𝙞𝙢𝙚: " + formatDuration(process.uptime()),
+        "┃ ❖ 𝙑𝙚𝙧𝙨𝙞𝙤𝙣: " + ctx.config.version,
+        "┗━━━━━━━━━━━━━━━━━━━━━━◆"
       ].join("\n"));
     }
   },
@@ -99,10 +106,10 @@ const commands = [
     description: "Show bot status, mode and uptime.",
     run: async ctx => {
       await ctx.reply(
-        "✅ " + ctx.config.name + " is " + (ctx.connectionOpen ? "online." : "connecting.") +
-        "\n🔐 Mode: " + String(ctx.mode || "public").toUpperCase() +
-        "\n⏱️ Uptime: " + formatDuration(process.uptime()) +
-        "\n⚡ Powered by " + ctx.config.ownerName
+        "✅ " + ctx.config.name + " 𝙞𝙨 " + (ctx.connectionOpen ? "𝙊𝙉𝙇𝙄𝙉𝙀." : "𝘾𝙊𝙉𝙉𝙀𝘾𝙏𝙄𝙉𝙂.") +
+        "\n🔐 𝙈𝙤𝙙𝙚: " + String(ctx.mode || "public").toUpperCase() +
+        "\n⏱️ 𝙐𝙥𝙩𝙞𝙢𝙚: " + formatDuration(process.uptime()) +
+        "\n⚡ 𝙋𝙤𝙬𝙚𝙧𝙚𝙙 𝙗𝙮 " + ctx.config.ownerName
       );
     }
   },
@@ -113,8 +120,8 @@ const commands = [
     run: async ctx => {
       const number = ownerNumber(ctx.config);
       await ctx.reply(
-        "👑 Owner: " + ctx.config.ownerName +
-        (number ? "\n📱 Owner number: +" + number : "")
+        "👑 𝙊𝙬𝙣𝙚𝙧: " + ctx.config.ownerName +
+        (number ? "\n📱 𝙊𝙬𝙣𝙚𝙧 𝙉𝙪𝙢𝙗𝙚𝙧: +" + number : "")
       );
     }
   },
@@ -124,8 +131,10 @@ const commands = [
     description: "Show support guidance for FEI XMD.",
     run: async ctx => {
       await ctx.reply(
-        "🛟 " + ctx.config.name + " Support\nFor setup help or bug reports, contact " +
-        ctx.config.ownerName + ".\n\nGitHub: https://github.com/Benfeitech/FEI-XMD"
+        "🛟 " + ctx.config.name + " 𝙎𝙐𝙋𝙋𝙊𝙍𝙏\n" +
+        "𝙁𝙤𝙧 𝙨𝙚𝙩𝙪𝙥 𝙝𝙚𝙡𝙥 𝙤𝙧 𝙗𝙪𝙜 𝙧𝙚𝙥𝙤𝙧𝙩𝙨, 𝙘𝙤𝙣𝙩𝙖𝙘𝙩 " +
+        ctx.config.ownerName + ".\n\n" +
+        "◆ 𝙂𝙞𝙩𝙃𝙪𝙗: https://github.com/Benfeitech/FEI-XMD"
       );
     }
   },
@@ -141,7 +150,8 @@ const commands = [
         second: "2-digit",
         hour12: true
       }).format(new Date());
-      await ctx.reply("🕒 Nigeria time: " + value);
+
+      await ctx.reply("🕒 𝙉𝙞𝙜𝙚𝙧𝙞𝙖 𝙏𝙞𝙢𝙚: " + value);
     }
   },
   {
@@ -156,7 +166,8 @@ const commands = [
         month: "long",
         year: "numeric"
       }).format(new Date());
-      await ctx.reply("📅 Date in Nigeria: " + value);
+
+      await ctx.reply("📅 𝘿𝙖𝙩𝙚 𝙞𝙣 𝙉𝙞𝙜𝙚𝙧𝙞𝙖: " + value);
     }
   },
   {
@@ -166,9 +177,9 @@ const commands = [
     run: async ctx => {
       await ctx.reply(
         "🤖 " + ctx.config.name + " v" + ctx.config.version +
-        "\n🟢 Status: " + (ctx.connectionOpen ? "Online" : "Connecting") +
-        "\n🔐 Mode: " + String(ctx.mode || "public").toUpperCase() +
-        "\n📦 Baileys: official WhiskeySockets npm package"
+        "\n🟢 𝙎𝙩𝙖𝙩𝙪𝙨: " + (ctx.connectionOpen ? "𝙊𝙣𝙡𝙞𝙣𝙚" : "𝘾𝙤𝙣𝙣𝙚𝙘𝙩𝙞𝙣𝙜") +
+        "\n🔐 𝙈𝙤𝙙𝙚: " + String(ctx.mode || "public").toUpperCase() +
+        "\n📦 𝘽𝙖𝙞𝙡𝙚𝙮𝙨: 𝙊𝙛𝙛𝙞𝙘𝙞𝙖𝙡 𝙒𝙝𝙞𝙨𝙠𝙚𝙮𝙎𝙤𝙘𝙠𝙚𝙩𝙨 𝙉𝙋𝙈 𝙋𝙖𝙘𝙠𝙖𝙜𝙚"
       );
     }
   },
@@ -179,8 +190,8 @@ const commands = [
     description: "Show the current chat and message sender IDs.",
     run: async ctx => {
       await ctx.reply(
-        "💬 Chat ID: " + ctx.jid +
-        "\n👤 Sender ID: " + (ctx.senderJid || "Unavailable")
+        "💬 𝘾𝙝𝙖𝙩 𝙄𝘿: " + ctx.jid +
+        "\n👤 𝙎𝙚𝙣𝙙𝙚𝙧 𝙄𝘿: " + (ctx.senderJid || "𝙐𝙣𝙖𝙫𝙖𝙞𝙡𝙖𝙗𝙡𝙚")
       );
     }
   },
@@ -190,12 +201,13 @@ const commands = [
     description: "Show your WhatsApp sender information.",
     run: async ctx => {
       await ctx.reply(
-        "👤 Name: " + (ctx.msg?.pushName || "Unknown") +
-        "\n🆔 Your ID: " + (ctx.senderJid || "Unavailable") +
-        "\n👑 Owner: " + (ctx.owner ? "Yes" : "No")
+        "👤 𝙉𝙖𝙢𝙚: " + (ctx.msg?.pushName || "𝙐𝙣𝙠𝙣𝙤𝙬𝙣") +
+        "\n🆔 𝙔𝙤𝙪𝙧 𝙄𝘿: " + (ctx.senderJid || "𝙐𝙣𝙖𝙫𝙖𝙞𝙡𝙖𝙗𝙡𝙚") +
+        "\n👑 𝙊𝙬𝙣𝙚𝙧: " + (ctx.owner ? "𝙔𝙚𝙨" : "𝙉𝙤")
       );
     }
   }
 ];
 
 export default commands;
+             
